@@ -4,14 +4,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sgrconsulting.ticketing.utils.Session;
 
 @Controller
-@RequestMapping(path = "/")
-public class MainController {
+@RequestMapping(path = "/issue")
+public class IssueController {
 	
 	private Session session = Session.getInstance();
 	
@@ -22,14 +23,24 @@ public class MainController {
 		return model;
 	}
 	
-	@GetMapping(path = "/")
-	public @ResponseBody String main() {
-		return "main";
+	@GetMapping(path = "/create")
+	public @ResponseBody String issueCreate() {
+		return "issueCreate";
 	}
 	
-	@GetMapping(path = "/dashboard")
-	public @ResponseBody String dashboard() {
-		return "dashboard";
+	@GetMapping(path = "/show/all")
+	public @ResponseBody String issueShowAll() {
+		return "issueShowAll";
 	}
 	
+	@GetMapping(path = "/close/{id}")
+	public @ResponseBody String issueClose() {
+		return "issueClose";
+	}
+	
+	@GetMapping(path = "/assign/{id}")
+	public @ResponseBody String issueAssign(@PathVariable(name = "id") Long id) {
+		return "issueAssign id=" + id;
+	}
+
 }

@@ -4,14 +4,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sgrconsulting.ticketing.utils.Session;
 
 @Controller
-@RequestMapping(path = "/")
-public class MainController {
+@RequestMapping(path = "/login-trace")
+public class LoginTraceController {
 	
 	private Session session = Session.getInstance();
 	
@@ -22,14 +23,14 @@ public class MainController {
 		return model;
 	}
 	
-	@GetMapping(path = "/")
-	public @ResponseBody String main() {
-		return "main";
+	@PostMapping(path = "/create")
+	public @ResponseBody String loginTraceCreate() {
+		return "loginTraceCreate";
 	}
 	
-	@GetMapping(path = "/dashboard")
-	public @ResponseBody String dashboard() {
-		return "dashboard";
+	@GetMapping(path = "/show/all")
+	public @ResponseBody String loginTraceShowAll() {
+		return "loginTraceShowAll";
 	}
 	
 }

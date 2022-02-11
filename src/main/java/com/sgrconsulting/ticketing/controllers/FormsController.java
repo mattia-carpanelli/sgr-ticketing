@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sgrconsulting.ticketing.utils.Session;
 
 @Controller
-@RequestMapping(path = "/")
-public class MainController {
+@RequestMapping(path = "/form")
+public class FormsController {
 	
 	private Session session = Session.getInstance();
 	
@@ -22,14 +22,19 @@ public class MainController {
 		return model;
 	}
 	
-	@GetMapping(path = "/")
-	public @ResponseBody String main() {
-		return "main";
+	@GetMapping(path = "/user/login")
+	public @ResponseBody String formUserLogin() {
+		return "formUserlogin";
 	}
 	
-	@GetMapping(path = "/dashboard")
-	public @ResponseBody String dashboard() {
-		return "dashboard";
+	@GetMapping(path = "/user/register")
+	public @ResponseBody String formUserRegister() {
+		return "formUserRegister";
 	}
 	
+	@GetMapping(path = "/issue/create")
+	public @ResponseBody String formIssueCreate() {
+		return "fromIssueCreate";
+	}
+
 }
