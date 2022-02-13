@@ -38,12 +38,13 @@ public class Session {
 		this.configs = Configs.getInstance();
 		sessionToken = UUID.randomUUID().toString();
 		
+		addAttribute("companyLogoFilename", configs.getCompanyLogoFilename());
 		addAttribute("companyName", configs.getCompanyName());
-		addAttribute("address", configs.getAddress());
-		addAttribute("phoneNumber", configs.getPhoneNumber());
-		addAttribute("phoneNumberFormatted", configs.getPhoneNumberFormatted());
-		addAttribute("partitaIva", configs.getPartitaIva());
-		addAttribute("email", configs.getEmail());
+		addAttribute("companyAddress", configs.getAddress());
+		addAttribute("companyPhoneNumber", configs.getPhoneNumber());
+		addAttribute("companyPhoneNumberFormatted", configs.getPhoneNumberFormatted());
+		addAttribute("companyPartitaIva", configs.getPartitaIva());
+		addAttribute("companyEmail", configs.getEmail());
 	}
 	
 	private void addAttribute(String key, String value) {

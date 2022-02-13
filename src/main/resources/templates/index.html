@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/master.css">
+    <title>SGR Consulting Ticketing</title>
+</head>
+
+<body>
+    <div id="container">
+        <div id="header">
+            <img th:src="@{|img/${companyLogoFilename}|}" th:alt="@{|${companyName} Ticketing Service|}" class="logo" />
+        </div>
+        <div id="content"></div>
+        <div id="footer">
+            <span th:text="@{|${companyName} Ticketing Service|}" id="companyName"></span>
+
+            <span th:text="${companyAddress}"></span>
+            <br />
+
+            <a th:text="${companyPhoneNumberFormatted}" th:href="@{|tel:${companyPhoneNumber}|}"></a>
+            <br />
+
+            <span th:text="${companyPartitaIva}"></span>
+            <br />
+
+            <a th:text="${companyEmail}" th:href="@{|mailto:${companyEmail}|}"></a>
+            <br />
+        </div>
+    </div>
+</body>
+
+</html>

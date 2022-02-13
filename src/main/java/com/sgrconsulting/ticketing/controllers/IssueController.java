@@ -13,31 +13,31 @@ import com.sgrconsulting.ticketing.utils.Session;
 @Controller
 @RequestMapping(path = "/issue")
 public class IssueController {
-	
+
 	private Session session = Session.getInstance();
-	
+
 	@ModelAttribute("initModel")
 	public Model initModel(Model model) {
 		model.addAllAttributes(session.getFooterAttributes());
-		
+
 		return model;
 	}
-	
+
 	@GetMapping(path = "/create")
 	public @ResponseBody String issueCreate() {
 		return "issueCreate";
 	}
-	
+
 	@GetMapping(path = "/show/all")
 	public @ResponseBody String issueShowAll() {
 		return "issueShowAll";
 	}
-	
+
 	@GetMapping(path = "/close/{id}")
 	public @ResponseBody String issueClose() {
 		return "issueClose";
 	}
-	
+
 	@GetMapping(path = "/assign/{id}")
 	public @ResponseBody String issueAssign(@PathVariable(name = "id") Long id) {
 		return "issueAssign id=" + id;

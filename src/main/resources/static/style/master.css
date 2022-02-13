@@ -1,0 +1,38 @@
+a {
+  text-decoration: none;
+}
+
+#container {
+  margin: 0 auto;
+  text-align: center;
+  width: 90%;
+  border-radius: 5px;
+}
+#container #header {
+  height: 100px;
+  background-color: red;
+}
+#container #header img.logo {
+  height: 100px;
+}
+#container #content {
+  height: 700px;
+  background-color: green;
+}
+#container #footer {
+  height: 100px;
+  color: #5e5e5e;
+}
+#container #footer span {
+  float: right;
+}
+#container #footer span#companyName {
+  float: left;
+  font-weight: bold;
+}
+#container #footer span.label {
+  font-weight: bold;
+}
+#container #footer a {
+  float: right;
+}/*# sourceMappingURL=master.css.map */

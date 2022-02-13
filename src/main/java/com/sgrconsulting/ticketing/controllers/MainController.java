@@ -12,24 +12,24 @@ import com.sgrconsulting.ticketing.utils.Session;
 @Controller
 @RequestMapping(path = "/")
 public class MainController {
-	
+
 	private Session session = Session.getInstance();
-	
+
 	@ModelAttribute("initModel")
 	public Model initModel(Model model) {
 		model.addAllAttributes(session.getFooterAttributes());
-		
+
 		return model;
 	}
-	
+
 	@GetMapping(path = "/")
-	public @ResponseBody String main() {
-		return "main";
+	public String main() {
+		return "index";
 	}
-	
+
 	@GetMapping(path = "/dashboard")
 	public @ResponseBody String dashboard() {
 		return "dashboard";
 	}
-	
+
 }

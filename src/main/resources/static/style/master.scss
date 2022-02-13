@@ -1,0 +1,46 @@
+a {
+    text-decoration: none;
+}
+
+#container {
+    margin: 0 auto;
+    text-align: center;
+    width: 90%;
+    border-radius: 5px;
+
+    #header {
+        height: 100px;
+        background-color: red;
+
+        img.logo {
+            height: 100px;
+        }
+    }
+
+    #content {
+        height: 700px;
+        background-color: green;
+    }
+
+    #footer {
+        height: 100px;
+        color: #5e5e5e;
+
+        span {
+            float: right;
+
+            &#companyName {
+                float: left;
+                font-weight: bold;
+            }
+
+            &.label {
+                font-weight: bold;
+            }
+        }
+
+        a {
+            float: right;
+        }
+    }
+}
