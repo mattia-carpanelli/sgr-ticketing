@@ -1,4 +1,7 @@
-a {
+a,
+a:visited,
+a:hover {
+  color: #267cd3;
   text-decoration: none;
 }
 
@@ -10,14 +13,109 @@ a {
 }
 #container #header {
   height: 100px;
-  background-color: red;
 }
 #container #header img.logo {
   height: 100px;
 }
 #container #content {
-  height: 700px;
-  background-color: green;
+  height: 650px;
+  padding: 1%;
+}
+#container #content h2 {
+  font-size: 30px;
+}
+#container #content p {
+  font-size: 25px;
+}
+#container #content .form-container {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin: 0 auto;
+}
+#container #content .form-container fieldset {
+  border: none;
+  border-top: 1px solid black;
+}
+#container #content .form-container fieldset legend {
+  margin: 0 auto;
+  text-align: center;
+}
+#container #content .form-container-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin-top: 8%;
+}
+#container #content .form-container-item label {
+  text-align: left;
+}
+#container #content .form-container-item input {
+  width: 50%;
+}
+#container #content .form-container-item input[type=text], #container #content .form-container-item input[type=password] {
+  height: 25px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+#container #content .form-container-item input[type=submit] {
+  margin-bottom: 5%;
+  width: 100%;
+  color: green;
+  border-color: green;
+  border-radius: 15px;
+  background-color: #bfffb8;
+  font-size: 20px;
+  text-transform: uppercase;
+  text-align: center;
+  height: 50%;
+}
+#container #content .issue-counts-container {
+  display: grid;
+  grid-template-areas: "open closed" "assigned total";
+}
+#container #content .issue-counts-container span {
+  font-size: 100px;
+}
+#container #content .issue-counts-container a {
+  color: black;
+  -webkit-text-decoration: dotted;
+          text-decoration: dotted;
+  text-transform: uppercase;
+}
+#container #content .issue-counts-item.open {
+  grid-area: open;
+}
+#container #content .issue-counts-item.open span {
+  color: red;
+}
+#container #content .issue-counts-item.closed {
+  grid-area: closed;
+}
+#container #content .issue-counts-item.closed span {
+  color: blue;
+}
+#container #content .issue-counts-item.assigned {
+  grid-area: assigned;
+}
+#container #content .issue-counts-item.assigned span {
+  color: green;
+}
+#container #content .issue-counts-item.total {
+  grid-area: total;
+}
+#container #content .issue-counts-item.total span {
+  color: gray;
+}
+#container #content.error h2 {
+  color: red;
+}
+#container #content.error h2.header {
+  text-decoration: underline;
+}
+#container #content.error h2 span.errorCode {
+  font-weight: bolder;
+  color: #ff4545;
 }
 #container #footer {
   height: 100px;

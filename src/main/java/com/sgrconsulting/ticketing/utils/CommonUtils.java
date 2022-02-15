@@ -24,4 +24,8 @@ public class CommonUtils {
 		// TODO: Implement
 		return password.equals(hashedPassword);
 	}
+	
+	public static boolean checkSessionValidity(Session session) {
+		return session.isSessionValid();
+	}
 }

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{~/style/master.css}">
+    <title th:text="@{|${companyName} Ticketing Service|}"></title>
+</head>
+
+<body>
+    <div id="container">
+        <div id="header">
+            <a th:href="@{|~/|}">
+                <img th:src="@{|~/img/${companyLogoFilename}|}" th:alt="@{|${companyName} Ticketing Service|}"
+                    class="logo" />
+            </a>
+        </div>
+        <div id="content">
+            <h2>Ciao,
+                <span th:text="@{|${userFullName}!|}"></span>
+                Buon lavoro!
+            </h2>
+
+            <br><br><br><br>
+
+            <div class="issue-counts-container">
+                <div class="issue-counts-item open">
+                    <a th:href="@{|~/issue/show/open|}">
+                        <span th:text="${openIssuesCount}"></span>
+                        <p>Ticket aperti</p>
+                    </a>
+                </div>
+                <div class="issue-counts-item closed">
+                    <a th:href="@{|~/issue/show/closed|}">
+                        <span th:text="${closedIssuesCount}"></span>
+                        <p>Ticket chiusi</p>
+                    </a>
+                </div>
+                <div class="issue-counts-item assigned">
+                    <a th:href="@{|~/issue/show/assigned|}">
+                        <span th:text="${assignedIssuesCount}"></span>
+                        <p>Ticket assegnati a me</p>
+                    </a>
+                </div>
+                <div class="issue-counts-item total">
+                    <a th:href="@{|~/issue/show/all|}">
+                        <span th:text="${totalIssuesCount}"></span>
+                        <p>Ticket totali</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <span th:text="@{|${companyName} Ticketing Service|}" id="companyName"></span>
+
+            <span th:text="${companyAddress}"></span>
+            <br />
+
+            <a th:text="${companyPhoneNumberFormatted}" th:href="@{|tel:${companyPhoneNumber}|}"></a>
+            <br />
+
+            <span th:text="${companyPartitaIva}"></span>
+            <br />
+
+            <a th:text="${companyEmail}" th:href="@{|mailto:${companyEmail}|}"></a>
+            <br />
+        </div>
+    </div>
+</body>
+
+</html>

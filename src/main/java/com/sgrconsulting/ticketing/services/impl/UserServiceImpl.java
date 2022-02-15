@@ -40,18 +40,22 @@ public class UserServiceImpl implements UserService {
 	public User findById(Long id) throws UserNotFoundException {
 		Optional<User> optionalUser = userRepository.findById(id);
 		
-		if(optionalUser.isEmpty() || optionalUser.get() == null) {
+		User user = optionalUser.orElse(null);
+		
+		if(user == null) {
 			throw new UserNotFoundException("NOT PROVIDED (id=" + id + ")");
 		}
 		
-		return optionalUser.get();
+		return user;
 	}
 
 	@Override
 	public User findByUsername(String username) throws UserNotFoundException {
-		User user = userRepository.findByUsername(username);
+		Optional<User> optionalUser = userRepository.findByUsername(username);
 		
-		if(user != null) {
+		User user = optionalUser.orElse(null);
+		
+		if(user == null) {
 			throw new UserNotFoundException(username);
 		}
 		

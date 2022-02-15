@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sgrconsulting.ticketing.exceptions.ActionNotImplementedException;
 import com.sgrconsulting.ticketing.utils.Session;
 
 @Controller
@@ -23,18 +24,20 @@ public class FormsController {
 	}
 
 	@GetMapping(path = "/user/login")
-	public @ResponseBody String formUserLogin() {
-		return "formUserlogin";
+	public String formUserLogin() {
+		return "forms/user/login";
 	}
 
 	@GetMapping(path = "/user/register")
-	public @ResponseBody String formUserRegister() {
-		return "formUserRegister";
+	public @ResponseBody String formUserRegister() throws ActionNotImplementedException {
+		throw new ActionNotImplementedException("formUserRegister");
+		//TODO: return "formUserRegister";
 	}
 
 	@GetMapping(path = "/issue/create")
-	public @ResponseBody String formIssueCreate() {
-		return "fromIssueCreate";
+	public @ResponseBody String formIssueCreate() throws ActionNotImplementedException {
+		throw new ActionNotImplementedException("formIssueCreate");
+		//return "fromIssueCreate";
 	}
 
 }

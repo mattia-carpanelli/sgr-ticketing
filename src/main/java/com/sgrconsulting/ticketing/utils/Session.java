@@ -1,9 +1,12 @@
 package com.sgrconsulting.ticketing.utils;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import com.sgrconsulting.ticketing.model.User;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,13 +15,17 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(includeFieldNames = true)
-public class Session {
+public class Session implements Serializable {
 	
+	private static final long serialVersionUID = -1188735511980592526L;
+
 	private static Session instance = null;
 	
 	private Configs configs;
 	
 	private boolean isUserLoggedIn = false;
+	
+	private User loggedUser = null;
 	
 	private Instant expiryTime; // TODO: Implement
 	
@@ -52,11 +59,11 @@ public class Session {
 	}
 	
 	public boolean isSessionValid() {
-		boolean isUserSet = false; // FIXME:
+		boolean isUserSet = loggedUser != null;
 		boolean isSessionTokenValid = sessionToken != null && !sessionToken.isEmpty();
 		boolean isSessionExpired = false; // TODO: Implement
 		
-		return isUserSet && isSessionTokenValid && !isSessionExpired;
+		return isUserSet && isUserLoggedIn && isSessionTokenValid && !isSessionExpired;
 	}
 	
 }

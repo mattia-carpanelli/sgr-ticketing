@@ -1,12 +1,16 @@
 package com.sgrconsulting.ticketing.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sgrconsulting.ticketing.exceptions.SessionNotValidException;
+import com.sgrconsulting.ticketing.model.User;
+import com.sgrconsulting.ticketing.services.IssueService;
+import com.sgrconsulting.ticketing.utils.CommonUtils;
 import com.sgrconsulting.ticketing.utils.Session;
 
 @Controller
@@ -14,6 +18,9 @@ import com.sgrconsulting.ticketing.utils.Session;
 public class MainController {
 
 	private Session session = Session.getInstance();
+	
+	@Autowired
+	private IssueService issueService;
 
 	@ModelAttribute("initModel")
 	public Model initModel(Model model) {
@@ -28,7 +35,26 @@ public class MainController {
 	}
 
 	@GetMapping(path = "/dashboard")
-	public @ResponseBody String dashboard() {
+	public String dashboard(Model model) throws SessionNotValidException {
+		if(!CommonUtils.checkSessionValidity(session)) {
+			throw new SessionNotValidException(session);
+		}
+		
+		User loggedUser = session.getLoggedUser();
+		String userFullName = loggedUser.getFullName();
+		Long userId = loggedUser.getId();
+		
+		int openIssuesCount = issueService.countAllOpen();
+		int closedIssuesCount = issueService.countAllClosed();
+		int assignedIssuesCount = issueService.countAssigned(userId);
+		int totalIssuesCount = issueService.countAll();
+		
+		model.addAttribute("userFullName", userFullName);
+		model.addAttribute("openIssuesCount", openIssuesCount);
+		model.addAttribute("closedIssuesCount", closedIssuesCount);
+		model.addAttribute("assignedIssuesCount", assignedIssuesCount);
+		model.addAttribute("totalIssuesCount", totalIssuesCount);
+		
 		return "dashboard";
 	}
 

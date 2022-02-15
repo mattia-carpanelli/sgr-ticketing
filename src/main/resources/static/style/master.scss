@@ -1,4 +1,7 @@
-a {
+a,
+a:visited,
+a:hover {
+    color: #267cd3;
     text-decoration: none;
 }
 
@@ -10,7 +13,6 @@ a {
 
     #header {
         height: 100px;
-        background-color: red;
 
         img.logo {
             height: 100px;
@@ -18,8 +20,138 @@ a {
     }
 
     #content {
-        height: 700px;
-        background-color: green;
+        height: 650px;
+        padding: 1%;
+
+        h2 {
+            font-size: 30px;
+        }
+
+        p {
+            font-size: 25px;
+        }
+
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            width: 40%;
+            margin: 0 auto;
+
+            & fieldset {
+                border: none;
+                border-top: 1px solid black;
+
+                legend {
+                    margin: 0 auto;
+                    text-align: center;
+                }
+            }
+
+            &-item {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                margin-top: 8%;
+
+                & label {
+                    text-align: left;
+                }
+
+                & input {
+                    width: 50%;
+
+                    &[type="text"],
+                    &[type="password"] {
+                        height: 25px;
+                        border: 1px solid black;
+                        border-radius: 5px;
+                    }
+
+                    &[type="submit"] {
+                        margin-bottom: 5%;
+                        width: 100%;
+                        color: green;
+                        border-color: green;
+                        border-radius: 15px;
+                        background-color: #bfffb8;
+                        font-size: 20px;
+                        text-transform: uppercase;
+                        text-align: center;
+                        height: 50%;
+                    }
+                }
+            }
+        }
+
+        .issue {
+            &-counts {
+                &-container {
+                    display: grid;
+                    grid-template-areas:
+                        "open closed"
+                        "assigned total";
+
+                    & span {
+                        font-size: 100px;
+                    }
+
+                    & a {
+                        color: black;
+                        text-decoration: dotted;
+                        text-transform: uppercase;
+                    }
+                }
+
+                &-item {
+                    &.open {
+                        grid-area: open;
+
+                        & span {
+                            color: red;
+                        }
+                    }
+
+                    &.closed {
+                        grid-area: closed;
+
+                        & span {
+                            color: blue;
+                        }
+                    }
+
+                    &.assigned {
+                        grid-area: assigned;
+
+                        & span {
+                            color: green;
+                        }
+                    }
+
+                    &.total {
+                        grid-area: total;
+
+                        & span {
+                            color: gray;
+                        }
+                    }
+                }
+            }
+        }
+
+        &.error {
+            & h2 {
+                color: red;
+
+                &.header {
+                    text-decoration: underline;
+                }
+
+                & span.errorCode {
+                    font-weight: bolder;
+                    color: #ff4545;
+                }
+            }
+        }
     }
 
     #footer {

@@ -1,5 +1,7 @@
 package com.sgrconsulting.ticketing.utils;
 
+import java.io.Serializable;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -7,8 +9,10 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString(includeFieldNames = true)
-public class Configs {
+public class Configs implements Serializable {
 	
+	private static final long serialVersionUID = -2737073455521531282L;
+
 	private static Configs instance = null;
 	
 	private String companyLogoFilename = "logo.gif";

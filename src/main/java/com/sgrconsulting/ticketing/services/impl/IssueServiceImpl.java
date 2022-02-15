@@ -1,14 +1,18 @@
 package com.sgrconsulting.ticketing.services.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.sgrconsulting.ticketing.model.Issue;
 import com.sgrconsulting.ticketing.repository.IssueRepository;
 import com.sgrconsulting.ticketing.services.IssueService;
-import java.util.Collections;
 
 @Service
 public class IssueServiceImpl implements IssueService {
@@ -38,44 +42,58 @@ public class IssueServiceImpl implements IssueService {
 
 	@Override
 	public Integer countAll() {
-		// TODO Implement
-		return 0;
+		return issueRepository.countAllIssues();
 	}
 
 	@Override
 	public List<Issue> findAllAssigned(Long assigneeId) {
-		// TODO Implement
-		return Collections.emptyList();
+		return issueRepository.findAllAssigned(assigneeId);
 	}
 
 	@Override
 	public Integer countAssigned(Long assigneeId) {
-		// TODO Implement
-		return 0;
+		return issueRepository.countAssignedIssues(assigneeId);
 	}
 
 	@Override
 	public List<Issue> findAllOpen() {
-		// TODO Implement
-		return Collections.emptyList();
+		return issueRepository.findAll();
 	}
 
 	@Override
 	public Integer countAllOpen() {
-		// TODO Implement
-		return 0;
+		return issueRepository.countOpenIssues();
 	}
 
 	@Override
 	public List<Issue> findAllClosed() {
-		// TODO Implement
-		return Collections.emptyList();
+		return issueRepository.findAllClosed();
 	}
 
 	@Override
 	public Integer countAllClosed() {
-		// TODO Auto-generated method stub
-		return 0;
+		return issueRepository.countClosedIssues();
+	}
+	
+	@Override
+	public Page<Issue> paginateResults(Pageable pageable, List<Issue> issueList) {
+		int pageSize = pageable.getPageSize();
+		int pageNumber = pageable.getPageNumber();
+		int startItem = pageSize * pageNumber;
+		
+		List<Issue> issueListToBuildPage;
+		
+		if(issueList.size() < startItem) {
+			issueListToBuildPage = Collections.emptyList();
+		} else {
+			int toIndex = Math.min(startItem, issueList.size());
+			
+			issueListToBuildPage = issueList.subList(startItem, toIndex);
+		}
+		
+		Pageable pageRequest = PageRequest.of(pageNumber, pageSize);
+		
+		return new PageImpl<>(issueListToBuildPage, pageRequest, issueList.size());
 	}
 
 }

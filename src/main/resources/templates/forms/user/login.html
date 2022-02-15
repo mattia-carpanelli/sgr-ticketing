@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{~/style/master.css}">
-    <title th:text="@{|${companyName} Ticketing Service|}"></title>
+    <title th:text="@{|Login - ${companyName} Ticketing Service|}"></title>
 </head>
 
 <body>
@@ -18,15 +18,22 @@
             </a>
         </div>
         <div id="content">
-            <h2>Ciao! Benvenuto nella nostra piattaforma di ticketing</h2>
-
-            <br><br><br><br>
-
-            <p>
-                Esegui il
-                <a href="/form/user/login">login</a>
-                e inizia il lavoro!
-            </p>
+            <form action="/user/login" method="post" class="form-container">
+                <fieldset>
+                    <legend>Log In</legend>
+                    <div class="form-container-item">
+                        <label for="username">Username: </label>
+                        <input type="text" name="username" id="username" required>
+                    </div>
+                    <div class="form-container-item">
+                        <label for="password">Password: </label>
+                        <input type="password" name="password" id="password" required>
+                    </div>
+                    <div class="form-container-item">
+                        <input type="submit" value="LOGIN">
+                    </div>
+                </fieldset>
+            </form>
         </div>
         <div id="footer">
             <span th:text="@{|${companyName} Ticketing Service|}" id="companyName"></span>

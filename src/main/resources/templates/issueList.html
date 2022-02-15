@@ -18,11 +18,11 @@
             </a>
         </div>
         <div id="content">
-            <h2>Ciao! Benvenuto nella nostra piattaforma di ticketing</h2>
+            <h2 th:text="${pageTitle}"></h2>
 
             <br><br><br><br>
 
-            <p>
+            <p th:text="${issueList}">
                 Esegui il
                 <a href="/form/user/login">login</a>
                 e inizia il lavoro!

@@ -2,6 +2,9 @@ package com.sgrconsulting.ticketing.services;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.sgrconsulting.ticketing.model.Issue;
 
 public interface IssueService {
@@ -23,5 +26,7 @@ public interface IssueService {
 	public List<Issue> findAllClosed();
 	
 	public Integer countAllClosed();
+	
+	public Page<Issue> paginateResults(Pageable pageable, List<Issue> issueList);
 	
 }

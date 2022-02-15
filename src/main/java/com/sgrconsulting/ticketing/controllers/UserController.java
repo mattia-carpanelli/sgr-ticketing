@@ -2,16 +2,16 @@ package com.sgrconsulting.ticketing.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sgrconsulting.ticketing.exceptions.SessionNotValidException;
 import com.sgrconsulting.ticketing.exceptions.UserNotFoundException;
 import com.sgrconsulting.ticketing.services.UserService;
+import com.sgrconsulting.ticketing.utils.CommonUtils;
 import com.sgrconsulting.ticketing.utils.Session;
 
 @Controller
@@ -23,29 +23,38 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@ModelAttribute("initModel")
-	public Model initModel(Model model) {
-		model.addAllAttributes(session.getFooterAttributes());
-
-		return model;
+	private void checkSessionValidity() throws SessionNotValidException {
+		if(session == null || !CommonUtils.checkSessionValidity(session)) {
+			throw new SessionNotValidException(session);
+		}
 	}
 
 	@PostMapping(path = "/login")
-	public @ResponseBody String userLogin(
+	public String userLogin(
 			@RequestParam(value = "username") String username,
 			@RequestParam(value = "password") String password) throws UserNotFoundException {
 
 		boolean loginSuccessful = userService.loginUser(username, password);
-		return "userLogin, loginSuccessful=" + loginSuccessful;
+		
+		if(loginSuccessful) {
+			session.setUserLoggedIn(loginSuccessful);
+			session.setLoggedUser(userService.findByUsername(username));
+			
+			return "redirect:/dashboard";
+		}
+		
+		return "form/user/login";
 	}
 
 	@PostMapping(path = "/register")
-	public @ResponseBody String userRegister() {
+	public @ResponseBody String userRegister() throws SessionNotValidException {
+		checkSessionValidity();
 		return "userRegister";
 	}
 
 	@GetMapping(path = "/logout")
-	public @ResponseBody String userLogout() {
+	public @ResponseBody String userLogout() throws SessionNotValidException {
+		checkSessionValidity();
 		return "userLogout";
 	}
 
