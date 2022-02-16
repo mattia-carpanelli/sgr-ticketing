@@ -1,7 +1,9 @@
 package com.sgrconsulting.ticketing.utils;
 
-public class CommonUtils {
-	
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+public class CommonUtils {	
 	private CommonUtils() { }
 
 	public static String createUsername(String name, String lastname) {
@@ -15,14 +17,14 @@ public class CommonUtils {
 	}
 	
 	
-	public static  String hashPassowrd(String password) {
-		// TODO: Implement
-		return password;
+	public static  String hashPassword(String password) {
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		return passwordEncoder.encode(password);
 	}
 	
 	public static boolean checkHashedPassword(String password, String hashedPassword) {
-		// TODO: Implement
-		return password.equals(hashedPassword);
+		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		return passwordEncoder.matches(password, hashedPassword);
 	}
 	
 	public static boolean checkSessionValidity(Session session) {

@@ -17,10 +17,35 @@ a:hover {
         img.logo {
             height: 100px;
         }
+
+        .secondary-action {
+            width: 50px;
+            height: 50px;
+            display: inline-table;
+            font-size: 30px;
+            color: black;
+
+            &.left {
+                float: left;
+            }
+
+            &.right {
+                float: right;
+            }
+
+            & a {
+                color: black;
+
+                & i {
+                    display: table-cell;
+                    vertical-align: middle;
+                }
+            }
+        }
     }
 
     #content {
-        height: 650px;
+        min-height: 690px;
         padding: 1%;
 
         h2 {
@@ -34,7 +59,7 @@ a:hover {
         .form-container {
             display: flex;
             flex-direction: column;
-            width: 40%;
+            width: 60%;
             margin: 0 auto;
 
             & fieldset {
@@ -50,18 +75,19 @@ a:hover {
             &-item {
                 display: flex;
                 flex-direction: row;
-                justify-content: space-evenly;
+                justify-content: space-between;
                 margin-top: 8%;
 
                 & label {
-                    text-align: left;
+                    text-align: right;
                 }
 
                 & input {
                     width: 50%;
 
                     &[type="text"],
-                    &[type="password"] {
+                    &[type="password"],
+                    &[type="email"] {
                         height: 25px;
                         border: 1px solid black;
                         border-radius: 5px;
@@ -133,6 +159,37 @@ a:hover {
                         & span {
                             color: gray;
                         }
+                    }
+                }
+            }
+
+            &-container {
+                display: grid;
+                grid-template-columns: 33% 33% 33%;
+            }
+
+            &-item {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-evenly;
+                text-align: center;
+                padding: 1%;
+                height: 350px;
+                border-radius: 30px;
+                background-color: white;
+                border: 1px solid gray;
+            }
+
+            &-pagination {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+
+                & a {
+                    margin: 10px;
+
+                    &.active {
+                        text-decoration: underline;
                     }
                 }
             }

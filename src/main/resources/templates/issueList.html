@@ -6,12 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{~/style/master.css}">
+    <script src="https://kit.fontawesome.com/8eff9e9f5f.js" crossorigin="anonymous"></script>
     <title th:text="@{|${companyName} Ticketing Service|}"></title>
 </head>
 
 <body>
     <div id="container">
         <div id="header">
+            <div class="secondary-action left">
+                <a href="/dashboard">
+                    <i class="fas fa-home"></i>
+                </a>
+            </div>
+            <div class="secondary-action right">
+                <a href="/form/issue/create">
+                    <i class="fas fa-plus"></i>
+                </a>
+            </div>
             <a th:href="@{|~/|}">
                 <img th:src="@{|~/img/${companyLogoFilename}|}" th:alt="@{|${companyName} Ticketing Service|}"
                     class="logo" />
@@ -22,11 +33,37 @@
 
             <br><br><br><br>
 
-            <p th:text="${issueList}">
-                Esegui il
-                <a href="/form/user/login">login</a>
-                e inizia il lavoro!
+            <p th:if="${issuePage.content.size() == 0}">
+                Non ci sono ticket...
+                <a href="/dashboard">Torna alla dashboard</a>
             </p>
+
+            <div class="issue-container">
+                <div th:each="issue : ${issuePage.content}" class="issue-item">
+                    <h2>
+                        <span th:text="@{|#${issue.id}|}"></span>
+                        <span th:text="${issue.title}"></span>
+                        <span th:text="${issue.priorityString}"></span>
+                    </h2>
+                    <h4>
+                        <span th:text="${issue.statusString}"></span>
+                        -
+                        Assegnato a
+                        <a th:if="${issue.assigneeId} == null" th:text="${issue.assigneeString}"
+                            th:href="@{|/issue/assign/${issue.id}|}"></a>
+                        <span th:unless="${issue.assigneeId} == null" th:text="${issue.assigneeString}"></span>
+                        </h6>
+                        <p th:text="${issue.description}"></p>
+                        <div class="issue-item-actions">
+                            <a th:if="${!issue.solved}" href="">Chiudi</a>
+                            <a href="">Dettagli</a>
+                        </div>
+                </div>
+            </div>
+            <div th:if="${issuePage.totalPages > 1}" class="issue-pagination">
+                <a th:href="@{|/${baseLink}?size=${pageSize}&page=${pageNumber}|}" th:each="pageNumber : ${pageNumbers}"
+                    th:text=${pageNumber} th:class="${pageNumber == issuePage.number + 1} ? active"></a>
+            </div>
         </div>
         <div id="footer">
             <span th:text="@{|${companyName} Ticketing Service|}" id="companyName"></span>

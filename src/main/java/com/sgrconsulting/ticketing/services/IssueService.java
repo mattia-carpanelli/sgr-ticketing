@@ -29,4 +29,6 @@ public interface IssueService {
 	
 	public Page<Issue> paginateResults(Pageable pageable, List<Issue> issueList);
 	
+	public void assignIssue(Long assigneeId, Long issueId);
+	
 }

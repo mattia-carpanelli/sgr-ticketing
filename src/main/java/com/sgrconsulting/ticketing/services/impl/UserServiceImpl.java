@@ -2,6 +2,7 @@ package com.sgrconsulting.ticketing.services.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean saveUser(String name, String lastname, String email, String password) {
 		String username = CommonUtils.createUsername(name, lastname);
-		String hashedPassword = CommonUtils.hashPassowrd(password);
+		String hashedPassword = CommonUtils.hashPassword(password);
+		String token = "sgr_" + UUID.randomUUID().toString();
 		
 		User newUser = User.builder()
 				.name(name)
@@ -29,6 +31,7 @@ public class UserServiceImpl implements UserService {
 				.email(email)
 				.username(username)
 				.password(hashedPassword)
+				.token(token)
 				.build();
 		
 		User savedUser = userRepository.save(newUser);

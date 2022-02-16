@@ -17,8 +17,28 @@ a:hover {
 #container #header img.logo {
   height: 100px;
 }
+#container #header .secondary-action {
+  width: 50px;
+  height: 50px;
+  display: inline-table;
+  font-size: 30px;
+  color: black;
+}
+#container #header .secondary-action.left {
+  float: left;
+}
+#container #header .secondary-action.right {
+  float: right;
+}
+#container #header .secondary-action a {
+  color: black;
+}
+#container #header .secondary-action a i {
+  display: table-cell;
+  vertical-align: middle;
+}
 #container #content {
-  height: 650px;
+  min-height: 690px;
   padding: 1%;
 }
 #container #content h2 {
@@ -30,7 +50,7 @@ a:hover {
 #container #content .form-container {
   display: flex;
   flex-direction: column;
-  width: 40%;
+  width: 60%;
   margin: 0 auto;
 }
 #container #content .form-container fieldset {
@@ -44,16 +64,16 @@ a:hover {
 #container #content .form-container-item {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
   margin-top: 8%;
 }
 #container #content .form-container-item label {
-  text-align: left;
+  text-align: right;
 }
 #container #content .form-container-item input {
   width: 50%;
 }
-#container #content .form-container-item input[type=text], #container #content .form-container-item input[type=password] {
+#container #content .form-container-item input[type=text], #container #content .form-container-item input[type=password], #container #content .form-container-item input[type=email] {
   height: 25px;
   border: 1px solid black;
   border-radius: 5px;
@@ -106,6 +126,32 @@ a:hover {
 }
 #container #content .issue-counts-item.total span {
   color: gray;
+}
+#container #content .issue-container {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
+#container #content .issue-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  text-align: center;
+  padding: 1%;
+  height: 350px;
+  border-radius: 30px;
+  background-color: white;
+  border: 1px solid gray;
+}
+#container #content .issue-pagination {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+#container #content .issue-pagination a {
+  margin: 10px;
+}
+#container #content .issue-pagination a.active {
+  text-decoration: underline;
 }
 #container #content.error h2 {
   color: red;

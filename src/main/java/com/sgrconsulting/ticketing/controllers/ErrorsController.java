@@ -67,11 +67,12 @@ public class ErrorsController {
 	@ExceptionHandler(value = ActionNotImplementedException.class)
 	public String actionNotImplementedException(ActionNotImplementedException anie, Model model) {
 		String errorDescription = "Questa azione non è ancora stata implementata. Torna alla dashboard";
+		String actionRequested = anie.getActionRequested();
 		
 		model.addAllAttributes(session.getFooterAttributes());
 		
 		model.addAttribute(ERROR_CODE_KEY, 403);
-		model.addAttribute(ERROR_HEADER_TEXT_KEY, "Azione non implementata");
+		model.addAttribute(ERROR_HEADER_TEXT_KEY, "Azione non implementata (" + actionRequested + ")");
 		model.addAttribute(ERROR_DESCRIPTION_KEY, errorDescription);
 		model.addAttribute(ACTION_LINK_KEY, "/dashboard");
 		model.addAttribute(ACTION_LINK_TEXT_KEY, "Torna alla dashboard");
@@ -79,8 +80,8 @@ public class ErrorsController {
 		return ERROR_PAGE;
 	}
 	
-	/*@ExceptionHandler(value = Exception.class)
+	@ExceptionHandler(value = Exception.class)
 	public @ResponseBody String exception(Exception e) {
 		return e.getMessage();
-	}*/
+	}
 }

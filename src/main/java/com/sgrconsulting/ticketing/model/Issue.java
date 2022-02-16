@@ -26,6 +26,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @Table(name = "Issues")
 public class Issue {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
@@ -58,6 +59,12 @@ public class Issue {
 	
 	@Transient
 	private String assigneeLinkString;
+	
+	public void prepareForRender() {		
+		this.priorityString = "!".repeat(this.priority);
+		this.statusString = this.solved ? "Chiuso" : "Aperto";
+		this.statusClassString = "status-" + (this.solved ? "closed" : "open");
+	}
 	
 	
 }

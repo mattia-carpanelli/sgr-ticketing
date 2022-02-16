@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.sgrconsulting.ticketing.exceptions.ActionNotImplementedException;
 import com.sgrconsulting.ticketing.exceptions.SessionNotValidException;
 import com.sgrconsulting.ticketing.exceptions.UserNotFoundException;
 import com.sgrconsulting.ticketing.services.UserService;
@@ -33,7 +34,7 @@ public class UserController {
 	public String userLogin(
 			@RequestParam(value = "username") String username,
 			@RequestParam(value = "password") String password) throws UserNotFoundException {
-
+		
 		boolean loginSuccessful = userService.loginUser(username, password);
 		
 		if(loginSuccessful) {
@@ -43,19 +44,29 @@ public class UserController {
 			return "redirect:/dashboard";
 		}
 		
-		return "form/user/login";
+		return "redirect:/form/user/login";
 	}
 
 	@PostMapping(path = "/register")
-	public @ResponseBody String userRegister() throws SessionNotValidException {
+	public String userRegister(
+			@RequestParam(value = "name") String name,
+			@RequestParam(value = "lastname") String lastname,
+			@RequestParam(value = "email") String email,
+			@RequestParam(value = "password") String password) throws SessionNotValidException {
+		
 		checkSessionValidity();
-		return "userRegister";
+		
+		userService.saveUser(name, lastname, email, password);
+		
+		return "redirect:/dashboard";
 	}
 
 	@GetMapping(path = "/logout")
-	public @ResponseBody String userLogout() throws SessionNotValidException {
+	public @ResponseBody String userLogout() throws SessionNotValidException, ActionNotImplementedException {
 		checkSessionValidity();
-		return "userLogout";
+		
+		throw new ActionNotImplementedException("userLogout");		
+		// TODO: return "userLogout";
 	}
 
 }

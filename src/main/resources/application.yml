@@ -3,13 +3,16 @@ server:
   
 spring:
    datasource:
-      url: jdbc:h2:mem:sgrConsulting
+      url: jdbc:h2:file:./db/sgrConsulting
       driverClassName: org.h2.Driver
       username: springuser
       password: SpringUser
    
    jpa:
+      hibernate.ddl-auto: update
       database-platform: org.hibernate.dialect.H2Dialect
       defer-datasource-initialization: true
       
-   h2.console.enabled: true
+   h2.console:
+      enabled: true
+      settings.web-allow-others: true
