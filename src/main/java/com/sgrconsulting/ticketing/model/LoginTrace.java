@@ -28,7 +28,7 @@ import lombok.ToString;
 public class LoginTrace {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String username;

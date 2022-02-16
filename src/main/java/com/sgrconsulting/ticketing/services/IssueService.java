@@ -31,4 +31,6 @@ public interface IssueService {
 	
 	public void assignIssue(Long assigneeId, Long issueId);
 	
+	public void closeIssue(Long id);
+	
 }

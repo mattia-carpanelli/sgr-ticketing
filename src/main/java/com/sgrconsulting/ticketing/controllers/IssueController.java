@@ -5,6 +5,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +18,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sgrconsulting.ticketing.exceptions.ActionNotImplementedException;
 import com.sgrconsulting.ticketing.exceptions.SessionNotValidException;
@@ -24,14 +25,11 @@ import com.sgrconsulting.ticketing.model.Issue;
 import com.sgrconsulting.ticketing.model.User;
 import com.sgrconsulting.ticketing.services.IssueService;
 import com.sgrconsulting.ticketing.utils.CommonUtils;
-import com.sgrconsulting.ticketing.utils.Session;
 
 @Controller
 @RequestMapping(path = "/issue")
 public class IssueController {
 
-	private Session session = Session.getInstance();
-	
 	@Autowired
 	private IssueService issueService;
 	
@@ -45,19 +43,19 @@ public class IssueController {
 	
 	private static final String ISSUE_LIST_PAGE = "issueList";
 	
-	private static final int PAGE_SIZE = 6;
+	private static final int PAGE_SIZE = 8;
 
 	@ModelAttribute("initModel")
-	public Model initModel(Model model) throws SessionNotValidException {
-		checkSessionValidity();
-		model.addAllAttributes(session.getFooterAttributes());
+	public Model initModel(Model model, HttpSession httpSession) throws SessionNotValidException {
+		checkSessionValidity(httpSession);
+		model.addAllAttributes(CommonUtils.getModelAttributes());
 
 		return model;
 	}
 	
-	private void checkSessionValidity() throws SessionNotValidException  {
-		if(!CommonUtils.checkSessionValidity(session)) {
-			throw new SessionNotValidException(session);
+	private void checkSessionValidity(HttpSession httpSession) throws SessionNotValidException  {
+		if(!CommonUtils.checkSessionValidity(httpSession)) {
+			throw new SessionNotValidException();
 		}
 	}
 
@@ -65,14 +63,9 @@ public class IssueController {
 	public String issueCreate(
 			@RequestParam(value = "title") String title,
 			@RequestParam(value = "description") String description,
-			@RequestParam(value = "priority") String[] priority) {
+			@RequestParam(value = "priority") Integer priority) {
 		
-		String priorityIndex = priority[0];
-		String[] priorityIndexSplit = priorityIndex.split("=");
-		String priorityIndexValue = priorityIndexSplit[1].trim();
-		int priorityValue = Integer.parseInt(priorityIndexValue) + 1;
-		
-		boolean issueSaved = issueService.save(title, description, null, priorityValue, false);
+		boolean issueSaved = issueService.save(title, description, null, priority, false);
 		
 		if(issueSaved) {
 			return "redirect:/dashboard";
@@ -81,9 +74,13 @@ public class IssueController {
 		return "redirect:/form/issue/create";
 	}
 	
+	@GetMapping(path = "/show/single/{id}")
+	public String issueShowSingle(Model model, @PathVariable(name = "id") Long id) throws ActionNotImplementedException {
+		throw new ActionNotImplementedException("issueShowSingle");
+	}
+	
 	@GetMapping(path = "/show/open")
-	public String issueShowOpen(Model model,
-			@RequestParam(name = "page") Optional<Integer> page) {
+	public String issueShowOpen(Model model, @RequestParam(name = "page") Optional<Integer> page) {
 		
 		List<Issue> issueList = issueService.findAllOpen();
 		
@@ -107,8 +104,7 @@ public class IssueController {
 	}
 	
 	@GetMapping(path = "/show/closed")
-	public String issueShowClosed(Model model,
-			@RequestParam(name = "page") Optional<Integer> page) {
+	public String issueShowClosed(Model model, @RequestParam(name = "page") Optional<Integer> page) {
 		
 		List<Issue> issueList = issueService.findAllClosed();
 
@@ -132,9 +128,11 @@ public class IssueController {
 	
 	@GetMapping(path = "/show/assigned")
 	public String issueShowAssigned(Model model,
-			@RequestParam(name = "page") Optional<Integer> page) {
+			@RequestParam(name = "page") Optional<Integer> page,
+			HttpSession httpSession) {
 		
-		Long userId = session.getLoggedUser().getId();
+		User loggedUser = (User) httpSession.getAttribute(CommonUtils.LOGGED_USER_KEY);
+		Long userId = loggedUser.getId();		
 		
 		List<Issue> issueList = issueService.findAllAssigned(userId);
 
@@ -181,14 +179,14 @@ public class IssueController {
 	}
 
 	@GetMapping(path = "/close/{id}")
-	public String issueClose() throws ActionNotImplementedException {
-		throw new ActionNotImplementedException("issueClose");
-		//TODO: return "redirect:/issue/show/closed";
+	public String issueClose(@PathVariable(name = "id") Long id) {
+		issueService.closeIssue(id);
+		return "redirect:/issue/show/closed";
 	}
 
 	@GetMapping(path = "/assign/{id}")
-	public String issueAssign(@PathVariable(name = "id") Long id) {
-		User activeUser = session.getLoggedUser();
+	public String issueAssign(@PathVariable(name = "id") Long id, HttpSession httpSession) {
+		User activeUser = (User) httpSession.getAttribute(CommonUtils.LOGGED_USER_KEY);
 		Long assigneeId = activeUser.getId();
 		
 		issueService.assignIssue(assigneeId, id);

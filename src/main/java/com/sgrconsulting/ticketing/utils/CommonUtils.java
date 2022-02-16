@@ -1,10 +1,29 @@
 package com.sgrconsulting.ticketing.utils;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-public class CommonUtils {	
+import com.sgrconsulting.ticketing.model.User;
+
+public class CommonUtils {
+	
+	private static final String IS_USER_LOGGED_IN_KEY = "isUserLoggedIn";
+	
+	public static final String LOGGED_USER_KEY = "loggedUser";
+	
+	private static final String SESSION_TOKEN_KEY = "sessionToken";
+	
+	private static final Configs configs = Configs.getInstance();
+	
 	private CommonUtils() { }
+	
+	public static Map<String, String> getModelAttributes() {
+		return configs.getModelAttributes();
+	}
 
 	public static String createUsername(String name, String lastname) {
 		char nameInitial = name.charAt(0);
@@ -27,7 +46,29 @@ public class CommonUtils {
 		return passwordEncoder.matches(password, hashedPassword);
 	}
 	
-	public static boolean checkSessionValidity(Session session) {
-		return session.isSessionValid();
+	public static boolean checkSessionValidity(HttpSession session) {
+		Object isUserLoggedInObj = session.getAttribute(IS_USER_LOGGED_IN_KEY);
+		boolean isUserLoggedIn = isUserLoggedInObj != null && (boolean) isUserLoggedInObj;
+		
+		boolean isUserSet = session.getAttribute(LOGGED_USER_KEY) != null;
+		
+		String sessionToken = (String) session.getAttribute(SESSION_TOKEN_KEY);
+		
+		boolean isSessionTokenValid = sessionToken != null && !sessionToken.isEmpty();
+		
+		return isUserLoggedIn && isUserSet && isSessionTokenValid;
 	}
+	
+	public static void enableSession(HttpSession session, User user, String sessionToken) {
+		session.setAttribute(IS_USER_LOGGED_IN_KEY, true);
+		session.setAttribute(LOGGED_USER_KEY, user);
+		session.setAttribute(SESSION_TOKEN_KEY, sessionToken);
+	}
+	
+	public static void resetSession(HttpSession session) {
+		session.removeAttribute(IS_USER_LOGGED_IN_KEY);
+		session.removeAttribute(LOGGED_USER_KEY);
+		session.removeAttribute(SESSION_TOKEN_KEY);
+	}
+	
 }

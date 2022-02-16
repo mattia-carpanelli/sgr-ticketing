@@ -18,6 +18,7 @@
                     <i class="fas fa-home"></i>
                 </a>
             </div>
+            <div class="secondary-action right"></div>
             <a th:href="@{|~/|}">
                 <img th:src="@{|~/img/${companyLogoFilename}|}" th:alt="@{|${companyName} Ticketing Service|}"
                     class="logo" />
@@ -58,7 +59,7 @@
             <a th:text="${companyPhoneNumberFormatted}" th:href="@{|tel:${companyPhoneNumber}|}"></a>
             <br />
 
-            <span th:text="${companyPartitaIva}"></span>
+            <span th:text="${companyVATNumber}"></span>
             <br />
 
             <a th:text="${companyEmail}" th:href="@{|mailto:${companyEmail}|}"></a>

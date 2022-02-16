@@ -1,31 +1,29 @@
 package com.sgrconsulting.ticketing.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.sgrconsulting.ticketing.utils.Session;
+import com.sgrconsulting.ticketing.services.LoginTraceService;
 
 @Controller
 @RequestMapping(path = "/login-trace")
 public class LoginTraceController {
 
-	private Session session = Session.getInstance();
+	@Autowired
+	private LoginTraceService loginTraceService;
 
-	@ModelAttribute("initModel")
-	public Model initModel(Model model) {
-		model.addAllAttributes(session.getFooterAttributes());
-
-		return model;
-	}
-
-	@PostMapping(path = "/create")
-	public @ResponseBody String loginTraceCreate() {
-		return "loginTraceCreate";
+	@GetMapping(path = "/create/{ip}/{username}")
+	public String loginTraceCreate(
+			@PathVariable(name = "ip") String ip,
+			@PathVariable(name = "username") String username) {
+		
+		loginTraceService.save(ip, username);
+		
+		return "redirect:/dashboard";
 	}
 
 	@GetMapping(path = "/show/all")

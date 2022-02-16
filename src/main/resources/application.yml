@@ -1,12 +1,15 @@
 server:
   port: 9000
   
+  servlet.session.timeout: 10m
+  
 spring:
    datasource:
       url: jdbc:h2:file:./db/sgrConsulting
       driverClassName: org.h2.Driver
       username: springuser
       password: SpringUser
+      #initialization-mode: always
    
    jpa:
       hibernate.ddl-auto: update

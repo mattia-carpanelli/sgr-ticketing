@@ -4,11 +4,13 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.sgrconsulting.ticketing.model.LoginTrace;
 import com.sgrconsulting.ticketing.repository.LoginTraceRepository;
 import com.sgrconsulting.ticketing.services.LoginTraceService;
 
+@Service
 public class LoginTraceServiceImpl implements LoginTraceService {
 
 	@Autowired

@@ -1,5 +1,7 @@
 package com.sgrconsulting.ticketing.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +17,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@SuppressWarnings("serial")
 @Entity
 @Builder
 @AllArgsConstructor
@@ -29,10 +32,10 @@ import lombok.ToString;
 			@UniqueConstraint(columnNames = {"email"}),
 			@UniqueConstraint(columnNames = {"token"})
 	})
-public class User {
+public class User implements Serializable {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String name;

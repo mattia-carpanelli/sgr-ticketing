@@ -40,24 +40,29 @@
 
             <div class="issue-container">
                 <div th:each="issue : ${issuePage.content}" class="issue-item">
-                    <h2>
-                        <span th:text="@{|#${issue.id}|}"></span>
+                    <p class="header">
+                        <span th:text="${issue.id}" class="issue-id"></span>
                         <span th:text="${issue.title}"></span>
-                        <span th:text="${issue.priorityString}"></span>
-                    </h2>
-                    <h4>
-                        <span th:text="${issue.statusString}"></span>
+                        <span th:text="${issue.priorityString}" class="priority"
+                            th:classappend="@{|priority-${issue.priority}|}"></span>
+                    </p>
+                    <p class="subheader">
+                        <span th:if="${issue.solved} == true" th:text="${issue.statusString}"
+                            class="status status-closed"></span>
+                        <span th:if="${issue.solved} == false" th:text="${issue.statusString}"
+                            class="status status-open"></span>
                         -
                         Assegnato a
                         <a th:if="${issue.assigneeId} == null" th:text="${issue.assigneeString}"
                             th:href="@{|/issue/assign/${issue.id}|}"></a>
                         <span th:unless="${issue.assigneeId} == null" th:text="${issue.assigneeString}"></span>
-                        </h6>
-                        <p th:text="${issue.description}"></p>
-                        <div class="issue-item-actions">
-                            <a th:if="${!issue.solved}" href="">Chiudi</a>
-                            <a href="">Dettagli</a>
-                        </div>
+                    </p>
+                    <p th:text="${issue.description}" class="issue-item-description"></p>
+                    <div class="issue-item-actions">
+                        <!--TODO: add class="left" when Details are implemented-->
+                        <a th:if="${!issue.solved}" th:href="@{|/issue/close/${issue.id}|}">Chiudi</a>
+                        <!-- <a th:href="@{|/issue/show/single/${issue.id}|}">Dettagli</a> -->
+                    </div>
                 </div>
             </div>
             <div th:if="${issuePage.totalPages > 1}" class="issue-pagination">
@@ -74,7 +79,7 @@
             <a th:text="${companyPhoneNumberFormatted}" th:href="@{|tel:${companyPhoneNumber}|}"></a>
             <br />
 
-            <span th:text="${companyPartitaIva}"></span>
+            <span th:text="${companyVATNumber}"></span>
             <br />
 
             <a th:text="${companyEmail}" th:href="@{|mailto:${companyEmail}|}"></a>

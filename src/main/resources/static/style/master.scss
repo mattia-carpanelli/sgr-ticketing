@@ -82,6 +82,34 @@ a:hover {
                     text-align: right;
                 }
 
+                & textarea {
+                    height: 100px;
+                    width: 50%;
+                    border: 1px solid black;
+                    border-radius: 5px;
+                    resize: none;
+                }
+
+                & select {
+                    height: 25px;
+                    width: 50%;
+                    border: 1px solid black;
+                    border-radius: 5px;
+
+                    &.priority-1,
+                    & option.priority-1 {
+                        color: green;
+                    }
+                    &.priority-2,
+                    & option.priority-2 {
+                        color: orangered;
+                    }
+                    &.priority-3,
+                    & option.priority-3 {
+                        color: red;
+                    }
+                }
+
                 & input {
                     width: 50%;
 
@@ -165,7 +193,7 @@ a:hover {
 
             &-container {
                 display: grid;
-                grid-template-columns: 33% 33% 33%;
+                grid-template-columns: 25% 25% 25% 25%;
             }
 
             &-item {
@@ -173,20 +201,116 @@ a:hover {
                 flex-direction: column;
                 justify-content: space-evenly;
                 text-align: center;
-                padding: 1%;
-                height: 350px;
+                height: 500px;
                 border-radius: 30px;
                 background-color: white;
                 border: 1px solid gray;
+                margin: 5px;
+                padding: 3%;
+
+                & p {
+                    margin-top: 0;
+
+                    &.header {
+                        font-size: 1.2vw;
+                        font-weight: bold;
+                        text-overflow: ellipsis;
+
+                        & .issue-id {
+                            color: grey;
+
+                            &::before {
+                                content: "#";
+                            }
+
+                            &::after {
+                                color: black;
+                                content: " - ";
+                            }
+                        }
+
+                        & .priority {
+                            &::before {
+                                content: "(";
+                            }
+
+                            &::after {
+                                content: ")";
+                            }
+
+                            &.priority-1 {
+                                color: green;
+                            }
+
+                            &.priority-2 {
+                                color: orangered;
+                            }
+
+                            &.priority-3 {
+                                color: red;
+                            }
+                        }
+                    }
+
+                    &.subheader {
+                        font-size: 20px;
+
+                        & .status {
+                            text-transform: uppercase;
+                            font-weight: bold;
+
+                            &-closed {
+                                color: red;
+                            }
+
+                            &-open {
+                                color: green;
+                            }
+                        }
+                    }
+                }
+
+                &-description {
+                    font-size: 18px;
+                    width: 80%;
+                    word-wrap: break-word;
+                    text-align: justify;
+                    margin: 0 auto;
+                    height: 500px;
+                    overflow: scroll;
+                }
+
+                &-actions {
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    margin: 5% 20%;
+
+                    & a {
+                        color: black;
+                        text-transform: uppercase;
+                        text-decoration: underline;
+
+                        &.left {
+                            margin-right: 30%;
+                        }
+                    }
+                }
             }
 
             &-pagination {
                 display: flex;
                 flex-direction: row;
                 justify-content: center;
+                color: black;
 
                 & a {
                     margin: 10px;
+                    color: black;
+
+                    &:hover {
+                        color: #267cd3;
+                    }
 
                     &.active {
                         text-decoration: underline;

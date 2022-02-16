@@ -136,4 +136,9 @@ public class IssueServiceImpl implements IssueService {
 		 issueRepository.assignIssue(assigneeId, issueId);
 	}
 
+	@Override
+	public void closeIssue(Long id) {
+		issueRepository.closeIsse(id);
+	}
+	
 }

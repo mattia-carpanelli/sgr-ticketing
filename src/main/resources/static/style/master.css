@@ -70,6 +70,28 @@ a:hover {
 #container #content .form-container-item label {
   text-align: right;
 }
+#container #content .form-container-item textarea {
+  height: 100px;
+  width: 50%;
+  border: 1px solid black;
+  border-radius: 5px;
+  resize: none;
+}
+#container #content .form-container-item select {
+  height: 25px;
+  width: 50%;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+#container #content .form-container-item select.priority-1, #container #content .form-container-item select option.priority-1 {
+  color: green;
+}
+#container #content .form-container-item select.priority-2, #container #content .form-container-item select option.priority-2 {
+  color: orangered;
+}
+#container #content .form-container-item select.priority-3, #container #content .form-container-item select option.priority-3 {
+  color: red;
+}
 #container #content .form-container-item input {
   width: 50%;
 }
@@ -129,26 +151,101 @@ a:hover {
 }
 #container #content .issue-container {
   display: grid;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: 25% 25% 25% 25%;
 }
 #container #content .issue-item {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
   text-align: center;
-  padding: 1%;
-  height: 350px;
+  height: 500px;
   border-radius: 30px;
   background-color: white;
   border: 1px solid gray;
+  margin: 5px;
+  padding: 3%;
+}
+#container #content .issue-item p {
+  margin-top: 0;
+}
+#container #content .issue-item p.header {
+  font-size: 1.2vw;
+  font-weight: bold;
+  text-overflow: ellipsis;
+}
+#container #content .issue-item p.header .issue-id {
+  color: grey;
+}
+#container #content .issue-item p.header .issue-id::before {
+  content: "#";
+}
+#container #content .issue-item p.header .issue-id::after {
+  color: black;
+  content: " - ";
+}
+#container #content .issue-item p.header .priority::before {
+  content: "(";
+}
+#container #content .issue-item p.header .priority::after {
+  content: ")";
+}
+#container #content .issue-item p.header .priority.priority-1 {
+  color: green;
+}
+#container #content .issue-item p.header .priority.priority-2 {
+  color: orangered;
+}
+#container #content .issue-item p.header .priority.priority-3 {
+  color: red;
+}
+#container #content .issue-item p.subheader {
+  font-size: 20px;
+}
+#container #content .issue-item p.subheader .status {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+#container #content .issue-item p.subheader .status-closed {
+  color: red;
+}
+#container #content .issue-item p.subheader .status-open {
+  color: green;
+}
+#container #content .issue-item-description {
+  font-size: 18px;
+  width: 80%;
+  word-wrap: break-word;
+  text-align: justify;
+  margin: 0 auto;
+  height: 500px;
+  overflow: scroll;
+}
+#container #content .issue-item-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 5% 20%;
+}
+#container #content .issue-item-actions a {
+  color: black;
+  text-transform: uppercase;
+  text-decoration: underline;
+}
+#container #content .issue-item-actions a.left {
+  margin-right: 30%;
 }
 #container #content .issue-pagination {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  color: black;
 }
 #container #content .issue-pagination a {
   margin: 10px;
+  color: black;
+}
+#container #content .issue-pagination a:hover {
+  color: #267cd3;
 }
 #container #content .issue-pagination a.active {
   text-decoration: underline;

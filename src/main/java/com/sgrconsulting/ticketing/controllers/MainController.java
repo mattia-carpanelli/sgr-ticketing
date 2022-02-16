@@ -1,5 +1,7 @@
 package com.sgrconsulting.ticketing.controllers;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,36 +13,38 @@ import com.sgrconsulting.ticketing.exceptions.SessionNotValidException;
 import com.sgrconsulting.ticketing.model.User;
 import com.sgrconsulting.ticketing.services.IssueService;
 import com.sgrconsulting.ticketing.utils.CommonUtils;
-import com.sgrconsulting.ticketing.utils.Session;
 
 @Controller
 @RequestMapping(path = "/")
 public class MainController {
 
-	private Session session = Session.getInstance();
-	
 	@Autowired
 	private IssueService issueService;
 
 	@ModelAttribute("initModel")
 	public Model initModel(Model model) {
-		model.addAllAttributes(session.getFooterAttributes());
+		model.addAllAttributes(CommonUtils.getModelAttributes());
 
 		return model;
 	}
 
 	@GetMapping(path = "/")
-	public String main() {
+	public String main(HttpSession httpSession) {
+		if(CommonUtils.checkSessionValidity(httpSession)) {
+			return "redirect:/dashboard";
+		}
+		
 		return "index";
 	}
 
 	@GetMapping(path = "/dashboard")
-	public String dashboard(Model model) throws SessionNotValidException {
-		if(!CommonUtils.checkSessionValidity(session)) {
-			throw new SessionNotValidException(session);
+	public String dashboard(Model model, HttpSession httpSession) throws SessionNotValidException {
+		
+		if(!CommonUtils.checkSessionValidity(httpSession)) {
+			throw new SessionNotValidException();
 		}
 		
-		User loggedUser = session.getLoggedUser();
+		User loggedUser = (User) httpSession.getAttribute(CommonUtils.LOGGED_USER_KEY);
 		String userFullName = loggedUser.getFullName();
 		Long userId = loggedUser.getId();
 		

@@ -1,5 +1,6 @@
 package com.sgrconsulting.ticketing.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,11 +29,12 @@ import lombok.ToString;
 public class Issue {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	private String title;
 	
+	@Column(columnDefinition = "text")
 	private String description;
 	
 	@Builder.Default

@@ -12,6 +12,8 @@
 <body>
     <div id="container">
         <div id="header">
+            <div class="secondary-action left"></div>
+            <div class="secondary-action right"></div>
             <a th:href="@{|~/|}">
                 <img th:src="@{|~/img/${companyLogoFilename}|}" th:alt="@{|${companyName} Ticketing Service|}"
                     class="logo" />
@@ -27,6 +29,16 @@
                 <a href="/form/user/login">login</a>
                 e inizia il lavoro!
             </p>
+
+            <br><br><br><br>
+
+            <p>
+                Sei un nostro cliente?
+                <a th:href="@{|tel:${companyPhoneNumber}|}">Telefona</a>
+                o
+                <a th:href="@{|mailto:${companyEmail}|}">manda un mail</a>
+                per aprire un nuovo ticket!
+            </p>
         </div>
         <div id="footer">
             <span th:text="@{|${companyName} Ticketing Service|}" id="companyName"></span>
@@ -37,7 +49,7 @@
             <a th:text="${companyPhoneNumberFormatted}" th:href="@{|tel:${companyPhoneNumber}|}"></a>
             <br />
 
-            <span th:text="${companyPartitaIva}"></span>
+            <span th:text="${companyVATNumber}"></span>
             <br />
 
             <a th:text="${companyEmail}" th:href="@{|mailto:${companyEmail}|}"></a>

@@ -9,17 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.sgrconsulting.ticketing.utils.Session;
+import com.sgrconsulting.ticketing.utils.CommonUtils;
 
 @Controller
 @RequestMapping(path = "/form")
 public class FormsController {
 
-	private Session session = Session.getInstance();
-
 	@ModelAttribute("initModel")
 	public Model initModel(Model model) {
-		model.addAllAttributes(session.getFooterAttributes());
+		model.addAllAttributes(CommonUtils.getModelAttributes());
 
 		return model;
 	}

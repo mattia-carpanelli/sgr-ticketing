@@ -9,12 +9,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.sgrconsulting.ticketing.exceptions.ActionNotImplementedException;
 import com.sgrconsulting.ticketing.exceptions.SessionNotValidException;
 import com.sgrconsulting.ticketing.exceptions.UserNotFoundException;
-import com.sgrconsulting.ticketing.utils.Session;
+import com.sgrconsulting.ticketing.utils.CommonUtils;
 
 @ControllerAdvice
 public class ErrorsController {
-	
-	private Session session = Session.getInstance();
 	
 	private static final String ACTION_LINK_KEY = "actionLink";
 	
@@ -38,7 +36,7 @@ public class ErrorsController {
 		String username = unfe.getUsername();
 		String errorDescription = "Siamo spiacenti, ma l'utente con username '" + username + "' non è stato trovato. Riprova il login!";
 		
-		model.addAllAttributes(session.getFooterAttributes());
+		model.addAllAttributes(CommonUtils.getModelAttributes());
 		
 		model.addAttribute(ERROR_CODE_KEY, 404);
 		model.addAttribute(ERROR_HEADER_TEXT_KEY, "Utente non trovato");
@@ -53,7 +51,7 @@ public class ErrorsController {
 	public String sessionNotValidException(SessionNotValidException snve, Model model) {
 		String errorDescription = "La sessione è scaduta, esegui nuovamente il login per continuare a lavorare";
 		
-		model.addAllAttributes(session.getFooterAttributes());
+		model.addAllAttributes(CommonUtils.getModelAttributes());
 		
 		model.addAttribute(ERROR_CODE_KEY, 406);
 		model.addAttribute(ERROR_HEADER_TEXT_KEY, "Sessione scaduta");
@@ -69,7 +67,7 @@ public class ErrorsController {
 		String errorDescription = "Questa azione non è ancora stata implementata. Torna alla dashboard";
 		String actionRequested = anie.getActionRequested();
 		
-		model.addAllAttributes(session.getFooterAttributes());
+		model.addAllAttributes(CommonUtils.getModelAttributes());
 		
 		model.addAttribute(ERROR_CODE_KEY, 403);
 		model.addAttribute(ERROR_HEADER_TEXT_KEY, "Azione non implementata (" + actionRequested + ")");

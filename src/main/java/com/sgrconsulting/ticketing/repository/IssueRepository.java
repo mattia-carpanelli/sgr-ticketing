@@ -13,21 +13,18 @@ import com.sgrconsulting.ticketing.model.Issue;
 
 public interface IssueRepository extends JpaRepository<Issue, Long> {
 	
-	@Transactional
 	@Query(value = "SELECT i FROM Issue i WHERE i.solved = 0")
 	public List<Issue> findAllOpen(Sort sort);
 	
 	@Query(value = "SELECT COUNT(i) FROM Issue i WHERE i.solved = 0")
 	public Integer countOpenIssues();
 	
-	@Transactional
 	@Query(value = "SELECT i FROM Issue i WHERE i.solved = 1")
 	public List<Issue> findAllClosed(Sort sort);
 	
 	@Query(value = "SELECT COUNT(i) FROM Issue i WHERE i.solved = 1")
 	public Integer countClosedIssues();
 	
-	@Transactional
 	@Query(value = "SELECT i FROM Issue i WHERE i.assigneeId = :assigneeId")
 	public List<Issue> findAllAssigned(Long assigneeId, Sort sort);
 	
@@ -41,5 +38,10 @@ public interface IssueRepository extends JpaRepository<Issue, Long> {
 	@Modifying
 	@Query(value = "UPDATE Issue i SET i.assigneeId = :assigneeId WHERE i.id = :id")
 	public void assignIssue(Long assigneeId, Long id);
+	
+	@Transactional
+	@Modifying
+	@Query(value = "UPDATE Issue i SET i.solved = true WHERE i.id = :id")
+	public void closeIsse(Long id);
 	
 }

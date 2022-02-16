@@ -1,6 +1,8 @@
 package com.sgrconsulting.ticketing.utils;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -19,15 +21,17 @@ public class Configs implements Serializable {
 	
 	private String companyName = "SGR Consulting";
 	
-	private String address = "Via XXIV Maggio, 22. 26022. Castelverde (CR)";
+	private String companyAddress = "Via XXIV Maggio, 22. 26022. Castelverde (CR)";
 	
-	private String phoneNumber = "+390372748270";
+	private String companyPhoneNumber = "+390372748270";
 	
-	private String phoneNumberFormatted = "+39 0372 748270";
+	private String companyPhoneNumberFormatted = "+39 0372 748270";
 	
-	private String partitaIva = "01453650192";
+	private String companyVATNumber = "01453650192";
 	
-	private String email = "info@sgrconsulting.it";
+	private String companyEmail = "info@sgrconsulting.it";
+	
+	private Map<String, String> modelAttributes = new HashMap<>();
 	
 	public static Configs getInstance() {
 		if(instance == null) {
@@ -35,6 +39,16 @@ public class Configs implements Serializable {
 		}
 		
 		return instance;
+	}
+	
+	private Configs() {
+		modelAttributes.put("companyLogoFilename", companyLogoFilename);
+		modelAttributes.put("companyName", companyName);
+		modelAttributes.put("companyAddress", companyAddress);
+		modelAttributes.put("companyPhoneNumber", companyPhoneNumber);
+		modelAttributes.put("companyPhoneNumberFormatted", companyPhoneNumberFormatted);
+		modelAttributes.put("companyVATNumber", companyVATNumber);
+		modelAttributes.put("companyEmail", companyEmail);
 	}
 	
 }
