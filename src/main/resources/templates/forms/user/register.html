@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{~/style/master.css}">
+    <script src="https://kit.fontawesome.com/8eff9e9f5f.js" crossorigin="anonymous"></script>
+    <title th:text="@{|Login - ${companyName} Ticketing Service|}"></title>
+</head>
+
+<body>
+    <div id="container">
+        <div id="header">
+            <div class="secondary-action left">
+                <a href="/dashboard">
+                    <i class="fas fa-home"></i>
+                </a>
+            </div>
+            <a th:href="@{|~/|}">
+                <img th:src="@{|~/img/${companyLogoFilename}|}" th:alt="@{|${companyName} Ticketing Service|}"
+                    class="logo" />
+            </a>
+        </div>
+        <div id="content">
+            <form action="/user/register" method="post" class="form-container">
+                <fieldset>
+                    <legend>Registra un utente</legend>
+                    <div class="form-container-item">
+                        <label for="name">Nome: </label>
+                        <input type="text" name="name" id="name" required>
+                    </div>
+                    <div class="form-container-item">
+                        <label for="lastname">Cognome: </label>
+                        <input type="text" name="lastname" id="lastname" required>
+                    </div>
+                    <div class="form-container-item">
+                        <label for="email">E-mail: </label>
+                        <input type="email" name="email" id="email" required>
+                    </div>
+                    <div class="form-container-item">
+                        <label for="password">Password: </label>
+                        <input type="password" name="password" id="password" required>
+                    </div>
+                    <div class="form-container-item">
+                        <input type="submit" value="SALVA">
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        <div id="footer">
+            <span th:text="@{|${companyName} Ticketing Service|}" id="companyName"></span>
+
+            <span th:text="${companyAddress}"></span>
+            <br />
+
+            <a th:text="${companyPhoneNumberFormatted}" th:href="@{|tel:${companyPhoneNumber}|}"></a>
+            <br />
+
+            <span th:text="${companyPartitaIva}"></span>
+            <br />
+
+            <a th:text="${companyEmail}" th:href="@{|mailto:${companyEmail}|}"></a>
+            <br />
+        </div>
+    </div>
+</body>
+
+</html>
