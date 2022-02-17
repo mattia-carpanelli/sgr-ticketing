@@ -41,6 +41,9 @@ public class Issue {
 	private Long assigneeId = null;
 	
 	@Builder.Default
+	private Long companyId = null;
+	
+	@Builder.Default
 	private Integer priority = 1;
 	
 	@Builder.Default
