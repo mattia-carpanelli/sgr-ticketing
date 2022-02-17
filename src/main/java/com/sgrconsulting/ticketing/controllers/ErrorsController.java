@@ -27,8 +27,8 @@ public class ErrorsController {
 	private static final String ERROR_PAGE = "errors";
 	
 	@RequestMapping(path = "/error")
-	public @ResponseBody String handleError(Exception e) {
-		return e.getMessage();
+	public @ResponseBody String handleError() {
+		return "error";
 	}
 	
 	@ExceptionHandler(value = UserNotFoundException.class)

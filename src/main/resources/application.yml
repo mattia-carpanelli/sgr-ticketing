@@ -9,7 +9,7 @@ spring:
       driverClassName: org.h2.Driver
       username: springuser
       password: SpringUser
-      #initialization-mode: always
+      initialization-mode: always
    
    jpa:
       hibernate.ddl-auto: update
