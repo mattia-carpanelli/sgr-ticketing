@@ -9,6 +9,8 @@ import javax.persistence.Table;
 
 import org.springframework.data.annotation.Transient;
 
+import com.sgrconsulting.ticketing.utils.CommonUtils;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -63,7 +65,7 @@ public class Issue {
 	private String assigneeLinkString;
 	
 	public void prepareForRender() {		
-		this.priorityString = "!".repeat(this.priority);
+		this.priorityString = CommonUtils.repeatString("!", this.priority);
 		this.statusString = this.solved ? "Chiuso" : "Aperto";
 		this.statusClassString = "status-" + (this.solved ? "closed" : "open");
 	}

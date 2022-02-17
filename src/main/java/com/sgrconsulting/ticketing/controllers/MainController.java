@@ -27,6 +27,11 @@ public class MainController {
 
 		return model;
 	}
+	
+	@GetMapping(path = "/session-error")
+	public void sessionError() throws SessionNotValidException {
+		throw new SessionNotValidException();
+	}
 
 	@GetMapping(path = "/")
 	public String main(HttpSession httpSession) {

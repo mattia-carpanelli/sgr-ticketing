@@ -22,7 +22,7 @@ public class MainConfiguration extends WebSecurityConfigurerAdapter {
 		security.cors().and().csrf().disable();
 		security.sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-			.invalidSessionUrl("/error")
+			.invalidSessionUrl("/session-error")
 			.maximumSessions(10);
 	}
 	
