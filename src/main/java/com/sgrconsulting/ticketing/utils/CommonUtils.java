@@ -24,6 +24,15 @@ public class CommonUtils {
 	public static Map<String, String> getModelAttributes() {
 		return configs.getModelAttributes();
 	}
+	
+	public static String repeatString(String string, int times) {
+		String repeatedString = "";
+		for(; times > 0; times--) {
+			repeatedString += string;
+		}
+		
+		return repeatedString;
+	}
 
 	public static String createUsername(String name, String lastname) {
 		char nameInitial = name.charAt(0);
